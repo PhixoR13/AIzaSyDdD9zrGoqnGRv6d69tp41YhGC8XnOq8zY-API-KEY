@@ -1,0 +1,87 @@
+/* Custom keyframes for animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Keyframes for the touch drag ghost */
+@keyframes touchGhostAppear {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes touchGhostFloat {
+  0% {
+    transform: translate(-50%, -50%) translateY(0px) scale(1);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateY(-8px) scale(1.03);
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  }
+  100% {
+    transform: translate(-50%, -50%) translateY(0px) scale(1);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  }
+}
+
+/* Apply the animation */
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Utility to hide scrollbars */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* Base body styles */
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Styles for the drag-and-drop indicator orb */
+.drop-orb {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    pointer-events: none;
+    z-index: 10;
+    backdrop-filter: blur(8px);
+    box-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.7),
+        0 0 25px rgba(255, 255, 255, 0.5),
+        0 0 50px rgba(137, 196, 255, 0.6);
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+    opacity: 0;
+}
+
+/* Style for the orb when hovering over a drop zone */
+.is-dragging-over .drop-orb {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Styles for the touch drag ghost */
+.touch-ghost {
+    /* Chained animation: first it appears, then it starts floating infinitely */
+    animation: touchGhostAppear 0.2s ease-out forwards, touchGhostFloat 2.5s ease-in-out 0.2s infinite;
+}
